@@ -17,7 +17,21 @@ public class MarcasService {
         this.marcaRepository = marcaRepository;
     }
 
-    //Método para crear una marca.
+    // Método para cargar una imagen a una marca
+    public void cargarImagen(Long id, MultipartFile imagen) throws IOException {
+        // Obtener la marca existente por su ID
+        Marca marca = marcaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la marca con ID: " + id));
+
+        // Convertir la imagen a bytes y almacenarla en la entidad de marca
+        byte[] bytesImagen = imagen.getBytes();
+        marca.setImagen(bytesImagen);
+
+        // Guardar la marca actualizada en la base de datos
+        marcaRepository.save(marca);
+
+
+        //Método para crear una marca.
     public Marca createMarca(Marca marca /*MultipartFile logo*/) throws IOException {
         Marca nuevaMarca = new Marca();
         nuevaMarca.setName(marca.getName());
