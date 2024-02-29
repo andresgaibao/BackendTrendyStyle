@@ -1,7 +1,7 @@
 package com.proyecto.trendy.services;
 
 import com.proyecto.trendy.entity.User;
-import com.proyecto.trendy.enumeration.Role;
+import com.proyecto.trendy.enums.Role;
 import com.proyecto.trendy.repository.UserRepository;
 import com.proyecto.trendy.request.AuthenticationRequest;
 import com.proyecto.trendy.request.RegisterRequest;
