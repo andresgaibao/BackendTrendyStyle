@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Entity
 @Data
 @Builder
@@ -17,13 +18,13 @@ public class Marca {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String name;
 
-    /*@Lob
-    private byte[] logo;*/
-
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] img;
 
 
 }

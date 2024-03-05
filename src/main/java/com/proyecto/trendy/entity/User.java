@@ -1,6 +1,6 @@
 package com.proyecto.trendy.entity;
 
-import com.proyecto.trendy.enumeration.Role;
+import com.proyecto.trendy.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

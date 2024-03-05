@@ -1,7 +1,7 @@
 package com.proyecto.trendy.services;
 
 import com.proyecto.trendy.entity.User;
-import com.proyecto.trendy.enumeration.Role;
+import com.proyecto.trendy.enums.Role;
 import com.proyecto.trendy.repository.UserRepository;
 import com.proyecto.trendy.request.AuthenticationRequest;
 import com.proyecto.trendy.request.RegisterRequest;
@@ -56,17 +56,16 @@ public class AuthenticationService {
                 .build();
     }
 
-    @PreAuthorize("#userEmail == authentication.principal.username")
-    public AuthenticationResponse updateUser(String userEmail, RegisterRequest updatedUserData) {
-        var user = repository.findByEmail(userEmail)
-                .orElseThrow();
+    @PreAuthorize("#userId == authentication.principal.id")
+    public AuthenticationResponse updateUser(Integer id, RegisterRequest updatedUserData) {
+        var user = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
 
         // Actualiza los datos del usuario con la nueva información
         user.setName(updatedUserData.getName());
         user.setEmail(updatedUserData.getEmail());
         user.setPassword(passwordEncoder.encode(updatedUserData.getPassword()));
         // Puedes decidir si actualizar la contraseña o no
-
 
         repository.save(user);
 

@@ -6,26 +6,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "productos")
-public class Producto {
+@Table(name = "ventas")
+public class Venta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
-    private Double price;
-
-    @Lob
-    @Column(name = "img", length = 500)
-    private byte[] img;
 
     @ManyToOne
-    private Marca marca;
+    private User user;
+
+    @ManyToMany
+    private List<Producto> productos;
+
+    private Double total;
 }

@@ -1,4 +1,4 @@
-package com.proyecto.trendy.enumeration;
+package com.proyecto.trendy.enums;
 
 public enum Role {
 

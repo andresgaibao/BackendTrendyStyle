@@ -32,13 +32,14 @@ public class AuthenticationController {
         return  ResponseEntity.ok(service.authenticate(request));
     }
 
-    @PreAuthorize("isAuthenticated() and principal.username == #email")
-    @PutMapping("/update/{email}")
-    public ResponseEntity<AuthenticationResponse> updateUser(@PathVariable String email,
+    @PreAuthorize("isAuthenticated() and principal.username == #id.toString()")
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<AuthenticationResponse> updateUser(@PathVariable Integer id,
                                                              @RequestBody RegisterRequest updatedUserData) {
-        AuthenticationResponse response = service.updateUser(email, updatedUserData);
+        AuthenticationResponse response = service.updateUser(id, updatedUserData);
         return ResponseEntity.ok(response);
     }
+
 
     @PreAuthorize("isAuthenticated() and principal.username == #email")
     @DeleteMapping("/delete/{email}")
