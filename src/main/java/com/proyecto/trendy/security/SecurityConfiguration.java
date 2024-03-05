@@ -27,7 +27,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .antMatchers("/api/v1/auth/**").permitAll()
                 .antMatchers("/api/v1/marca/**").permitAll()
-                //.antMatchers("/api/v1/productos/**").permitAll()
+                .antMatchers("/api/v1/producto/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
