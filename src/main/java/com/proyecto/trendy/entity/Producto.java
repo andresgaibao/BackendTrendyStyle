@@ -7,24 +7,25 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "marcas")
-public class Marca {
+@Table(name = "productos")
+public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
+    private Double price;
 
     @Lob
-    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "img", length = 500)
     private byte[] img;
 
-
+    @ManyToOne
+    private Marca marca;
 }

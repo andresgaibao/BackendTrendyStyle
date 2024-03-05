@@ -58,15 +58,20 @@ public class MarcaService {
 
     //Método para buscar marca por id.
     public Optional<Marca> buscarMarcaPorId(Integer id){
+
         return repository.findById(id);
     }
 
     //Método para listar marcas.
     public List<Marca> mostrarMarcas(){
+
         return repository.findAll();
     }
 
-    public void eliminarPorId(Integer id){
-        repository.deleteById(id);
+    public void deleteMarca(Integer id) {
+        var marca = repository.findById(id)
+                .orElseThrow();
+
+        repository.delete(marca);
     }
 }
