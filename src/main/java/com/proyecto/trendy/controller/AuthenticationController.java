@@ -1,5 +1,6 @@
 package com.proyecto.trendy.controller;
 
+import com.proyecto.trendy.entity.User;
 import com.proyecto.trendy.request.AuthenticationRequest;
 import com.proyecto.trendy.request.RegisterRequest;
 import com.proyecto.trendy.responses.AuthenticationResponse;
@@ -41,6 +42,21 @@ public class AuthenticationController {
     }
 
 
+
+    private final AuthenticationService authenticationService;
+
+    //@GetMapping("/info")
+    //public ResponseEntity<User> getUserInfo(@AuthenticationPrincipal User user) {
+        // Puedes usar el objeto User directamente desde el argumento del método
+        //return ResponseEntity.ok(user);
+   // }
+
+    // Otro método para obtener información del usuario utilizando el servicio
+    @GetMapping("/info")
+    public ResponseEntity<User> getUserInfoFromService() {
+        User currentUser = authenticationService.getCurrentUser();
+        return ResponseEntity.ok(currentUser);
+    }
     @PreAuthorize("isAuthenticated() and principal.username == #email")
     @DeleteMapping("/delete/{email}")
     public ResponseEntity<String> deleteUser(@PathVariable String email) {

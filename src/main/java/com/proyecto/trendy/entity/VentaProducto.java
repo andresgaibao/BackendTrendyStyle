@@ -6,26 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "ventas")
-public class Venta {
+@Table(name = "ventas_productos")
+public class VentaProducto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    private Venta venta;
 
     @ManyToOne
-    private User user;
+    private Producto producto;
 
-    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
-    private List<VentaProducto> productos;
-
-    private Double total;
+    private Integer cantidad;
 }
