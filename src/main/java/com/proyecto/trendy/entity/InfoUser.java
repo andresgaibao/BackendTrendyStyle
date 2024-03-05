@@ -1,31 +1,28 @@
 package com.proyecto.trendy.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "ventas")
-public class Venta {
+@Table(name = "info_users")
+public class InfoUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String lastname;
+    private String cc;
+    private String num_cel;
+    private String city_of_residence;
+    private String address;
+    private Date birthday_date;
 
-    @ManyToOne
-    private User user;
-
-    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
-    private List<VentaProducto> productos;
-
-    private Double total;
 }
