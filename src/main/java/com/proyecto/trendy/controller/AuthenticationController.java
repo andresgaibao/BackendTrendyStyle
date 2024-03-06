@@ -31,12 +31,13 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody AuthenticationRequest request
     ){
-        return  ResponseEntity.ok(service.authenticate(request));
+        AuthenticationResponse response = service.authenticate(request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/list")
     public List<User> getAllUsers() {
-        return authenticationService.getAllUsers();
+        return service.getAllUsers();
     }
     @PreAuthorize("isAuthenticated() and principal.username == #id.toString()")
     @PutMapping("/update/{userId}")
@@ -47,9 +48,6 @@ public class AuthenticationController {
     }
 
 
-
-    private final AuthenticationService authenticationService;
-
     //@GetMapping("/info")
     //public ResponseEntity<User> getUserInfo(@AuthenticationPrincipal User user) {
         // Puedes usar el objeto User directamente desde el argumento del método
@@ -59,7 +57,7 @@ public class AuthenticationController {
     // Otro método para obtener información del usuario utilizando el servicio
     @GetMapping("/info")
     public ResponseEntity<User> getUserInfoFromService() {
-        User currentUser = authenticationService.getCurrentUser();
+        User currentUser = service.getCurrentUser();
         return ResponseEntity.ok(currentUser);
     }
     @PreAuthorize("isAuthenticated() and principal.username == #email")
