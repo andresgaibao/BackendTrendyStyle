@@ -55,6 +55,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(user)
                 .build();
     }
 
@@ -75,6 +76,7 @@ public class AuthenticationService {
         // Puedes decidir si actualizar la contraseña o no
 
         repository.save(user);
+
 
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
