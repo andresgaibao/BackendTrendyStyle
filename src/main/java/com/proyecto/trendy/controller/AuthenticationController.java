@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -33,6 +34,10 @@ public class AuthenticationController {
         return  ResponseEntity.ok(service.authenticate(request));
     }
 
+    @GetMapping("/list")
+    public List<User> getAllUsers() {
+        return authenticationService.getAllUsers();
+    }
     @PreAuthorize("isAuthenticated() and principal.username == #id.toString()")
     @PutMapping("/update/{userId}")
     public ResponseEntity<AuthenticationResponse> updateUser(@PathVariable Integer id,

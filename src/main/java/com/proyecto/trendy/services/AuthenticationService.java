@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,6 +57,11 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
+    public List<User> getAllUsers() {
+        return repository.findAll();
+    }
+
 
     @PreAuthorize("#userId == authentication.principal.id")
     public AuthenticationResponse updateUser(Integer id, RegisterRequest updatedUserData) {
