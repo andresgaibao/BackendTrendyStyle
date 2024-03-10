@@ -25,4 +25,9 @@ public class InfoUser {
     private String address;
     private Date birthday_date;
 
+    // Relación con User
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
