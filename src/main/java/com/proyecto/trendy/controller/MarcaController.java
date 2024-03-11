@@ -19,16 +19,16 @@ public class MarcaController {
     private MarcaService marcaService;
 
     @PostMapping("/guardar")
-    public ResponseEntity<Marca> registrarMarca(@RequestParam("archivo") MultipartFile archivo,
+    public ResponseEntity<Marca> registrarMarca(@RequestParam("img") MultipartFile img,
                                                 @RequestParam("name") String name) {
         try {
             // Validar campos vacíos
-            if (StringUtils.isEmpty(name) || archivo.isEmpty()) {
+            if (StringUtils.isEmpty(name) || img.isEmpty()) {
                 throw new MyException("Nombre y archivo son campos obligatorios");
             }
 
             // Resto del código para guardar en la base de datos
-            Marca nuevaMarca = marcaService.registrarMarca(archivo, name);
+            Marca nuevaMarca = marcaService.registrarMarca(img, name);
 
             return new ResponseEntity<>(nuevaMarca, HttpStatus.CREATED);
         } catch (MyException e) {
@@ -54,10 +54,10 @@ public class MarcaController {
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<Marca> actualizarMarca(@PathVariable Integer id,
-                                                 @RequestParam("archivo") MultipartFile archivo,
+                                                 @RequestParam("img") MultipartFile img,
                                                  @RequestParam("name") String name) {
         try {
-            Marca marcaActualizada = marcaService.actualizarMarca(id, archivo, name);
+            Marca marcaActualizada = marcaService.actualizarMarca(id, img, name);
             return new ResponseEntity<>(marcaActualizada, HttpStatus.OK);
         } catch (MyException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

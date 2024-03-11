@@ -17,12 +17,12 @@ public class MarcaService {
     private final MarcaRepository repository;
 
     //Método para registrar una marca.
-    public Marca registrarMarca(MultipartFile archivo, String name) throws MyException {
-        if (archivo != null) {
+    public Marca registrarMarca(MultipartFile img, String name) throws MyException {
+        if (img != null) {
             try {
                 Marca marca = new Marca();
                 marca.setName(name);
-                marca.setImg(archivo.getBytes());
+                marca.setImg(img.getBytes());
 
                 repository.save(marca);
             } catch (Exception e) {
@@ -34,15 +34,15 @@ public class MarcaService {
     }
 
     //Métodopara actualizar marcas.
-    public Marca actualizarMarca(Integer id, MultipartFile archivo, String name) throws MyException {
-        if (archivo != null) {
+    public Marca actualizarMarca(Integer id, MultipartFile img, String name) throws MyException {
+        if (img != null) {
             try {
                 Optional<Marca> optionalMarca = repository.findById(id);
 
                 if (optionalMarca.isPresent()) {
                     Marca marca = optionalMarca.get();
                     marca.setName(name);
-                    marca.setImg(archivo.getBytes());
+                    marca.setImg(img.getBytes());
 
                     return repository.save(marca);
                 } else {

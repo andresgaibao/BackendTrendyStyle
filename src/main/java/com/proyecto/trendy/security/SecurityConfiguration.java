@@ -26,7 +26,7 @@ public class SecurityConfiguration {
                 .disable()
                 .authorizeHttpRequests()
                 .antMatchers("/api/v1/auth/**").permitAll()
-                .antMatchers("/api/v1/marca/**").hasAuthority("ADMIN")
+                .antMatchers("/api/v1/marca/**").permitAll()
                 .antMatchers("/api/v1/producto/**").hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -38,6 +38,10 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return  http.build();
+    }
+
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().authorizeRequests().anyRequest().permitAll();
     }
 
 }

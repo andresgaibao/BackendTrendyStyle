@@ -28,8 +28,10 @@ public class CorsConfig {
         config.addAllowedHeader("Accept");
         config.addAllowedHeader("Authorization");
 
+
         // Configura la máxima cantidad de tiempo que una pre-solicitud puede ser almacenada en caché
         config.setMaxAge(3600L);
+        config.setAllowCredentials(true);
 
         source.registerCorsConfiguration("/**", config);
 
