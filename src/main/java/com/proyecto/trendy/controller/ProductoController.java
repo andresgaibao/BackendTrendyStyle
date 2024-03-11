@@ -25,12 +25,12 @@ public class ProductoController {
 
 
     @PostMapping("/registrar")
-    public ResponseEntity<String> registrarProducto(@RequestParam("archivo") MultipartFile archivo,
+    public ResponseEntity<String> registrarProducto(@RequestParam("img") MultipartFile img,
                                                     @RequestParam("name")  String name,
                                                     @RequestParam("precio")  Double precio,
                                                     @RequestParam("marcaId")  Integer marcaId) {
         try {
-            service.registrarProducto(archivo, name, precio, marcaId);
+            service.registrarProducto(img, name, precio, marcaId);
             return new ResponseEntity<>("Producto registrado correctamente", HttpStatus.CREATED);
         } catch (MyException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -39,12 +39,12 @@ public class ProductoController {
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizarProducto(@PathVariable("id") Integer id,
-                                                     @RequestParam("archivo") MultipartFile archivo,
+                                                     @RequestParam("img") MultipartFile img,
                                                      @RequestParam("name")  String name,
                                                      @RequestParam("precio")  Double precio,
                                                      @RequestParam("marcaId")  Integer marcaId) {
         try {
-            service.actualizarProducto(id, archivo, name, precio, marcaId);
+            service.actualizarProducto(id, img, name, precio, marcaId);
             return new ResponseEntity<>("Producto actualizado correctamente", HttpStatus.OK);
         } catch (MyException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
