@@ -7,13 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "marcas")
 public class Marca {
 
     @Id
@@ -25,6 +23,4 @@ public class Marca {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] img;
-
-
 }
