@@ -33,6 +33,7 @@ public class MarcaService {
         return null;
     }
 
+
     //Métodopara actualizar marcas.
     public Marca actualizarMarca(Integer id, MultipartFile img, String name) throws MyException {
         if (img != null) {
@@ -56,18 +57,13 @@ public class MarcaService {
         return null;
     }
 
-    //Método para buscar marca por id.
-    public Optional<Marca> buscarMarcaPorId(Integer id){
-
-        return repository.findById(id);
-    }
-
     //Método para listar marcas.
     public List<Marca> mostrarMarcas(){
 
         return repository.findAll();
     }
 
+    //Método para eliminar marca.
     public void deleteMarca(Integer id) {
         var marca = repository.findById(id)
                 .orElseThrow();

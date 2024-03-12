@@ -7,25 +7,32 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "items_carrito")
-public class ItemCarrito {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    private Carrito carrito;
+    private String name;
+
+    private Double price;
+
+    @Lob
+    @Column(name = "img", length = 500)
+    private byte[] img;
 
     @ManyToOne
-    private Producto producto;
+    private Marca marca;
 
-    private int cantidad;
+    private String detail;
 
-    // Otros atributos y métodos que consideres necesarios
+    @ManyToOne
+    private Category category;
 }
+
