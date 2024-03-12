@@ -29,6 +29,7 @@ public class SecurityConfiguration {
                 .antMatchers("/api/marcas/**").permitAll()
                 .antMatchers("/api/categories/**").permitAll()
                 .antMatchers("/api/products/**").permitAll()
+                .antMatchers("/api/infoUsers/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

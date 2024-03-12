@@ -23,7 +23,6 @@ public class InfoUser {
     private String num_cel;
     private String city_of_residence;
     private String address;
-    private Date birthday_date;
 
     // Relación con User
     @OneToOne

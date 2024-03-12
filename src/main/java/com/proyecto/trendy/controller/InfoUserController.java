@@ -26,8 +26,8 @@ public class InfoUserController {
                     infoUser.getCc(),
                     infoUser.getNum_cel(),
                     infoUser.getCity_of_residence(),
-                    infoUser.getAddress(),
-                    infoUser.getBirthday_date()
+                    infoUser.getAddress()
+
             );
             return new ResponseEntity<>(savedInfoUser, HttpStatus.CREATED);
         } catch (MyException e) {
@@ -45,7 +45,7 @@ public class InfoUserController {
                     infoUser.getNum_cel(),
                     infoUser.getCity_of_residence(),
                     infoUser.getAddress(),
-                    infoUser.getBirthday_date()
+
             );
             if (updatedInfoUser != null) {
                 return new ResponseEntity<>(updatedInfoUser, HttpStatus.OK);
