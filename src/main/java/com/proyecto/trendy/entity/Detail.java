@@ -7,15 +7,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
-
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShoppinCart {
-
+public class Detail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,8 +22,11 @@ public class ShoppinCart {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "sale_id")
+    private Sale sale;
 
     private int amount;
+
+
+
 }

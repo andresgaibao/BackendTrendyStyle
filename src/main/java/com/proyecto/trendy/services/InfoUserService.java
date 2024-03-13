@@ -38,7 +38,7 @@ public class InfoUserService {
 
     // Método para actualizar InfoUser.
     public InfoUser actualizarInfoUser(Integer id, String lastname, String cc, String num_cel,
-                                       String city_of_residence, String address, Date birthday_date) throws MyException {
+                                       String city_of_residence, String address) throws MyException {
         try {
             Optional<InfoUser> optionalInfoUser = repository.findById(id);
 
@@ -49,7 +49,6 @@ public class InfoUserService {
                 infoUser.setNum_cel(num_cel);
                 infoUser.setCity_of_residence(city_of_residence);
                 infoUser.setAddress(address);
-                infoUser.setBirthday_date(birthday_date);
 
                 return repository.save(infoUser);
             } else {
@@ -74,7 +73,8 @@ public class InfoUserService {
     // Método para eliminar InfoUser por id.
     public void deleteInfoUser(Integer id) throws MyException {
         var infoUser = repository.findById(id)
-                .orElseThrow(() -> new MyException("Información del usuario no encontrada con el ID: " + id));
+                .orElseThrow(() -> new MyException("Información del usuario no encontrada con el ID:" +
+                        " " + id));
 
         repository.delete(infoUser);
     }
