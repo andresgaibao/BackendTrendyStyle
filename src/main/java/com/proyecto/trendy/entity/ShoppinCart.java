@@ -21,16 +21,9 @@ public class ShoppinCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    @JsonBackReference
-    private User user;
+    @OneToMany(mappedBy = "shoppingCart")
+    private List<Product> products = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "cart_products",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<CartItem> productsShoppingCart = new ArrayList<>();
+    @ManyToOne
+    private User user;
 }

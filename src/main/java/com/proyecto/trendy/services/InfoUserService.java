@@ -19,7 +19,7 @@ public class InfoUserService {
 
     // Método para registrar un InfoUser.
     public InfoUser registrarInfoUser(String lastname, String cc, String num_cel, String city_of_residence,
-                                      String address, Date birthday_date) throws MyException {
+                                      String address) throws MyException {
         try {
             InfoUser infoUser = new InfoUser();
             infoUser.setLastname(lastname);
@@ -27,7 +27,7 @@ public class InfoUserService {
             infoUser.setNum_cel(num_cel);
             infoUser.setCity_of_residence(city_of_residence);
             infoUser.setAddress(address);
-            infoUser.setBirthday_date(birthday_date);
+
 
             return repository.save(infoUser);
         } catch (Exception e) {
