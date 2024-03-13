@@ -44,8 +44,7 @@ public class InfoUserController {
                     infoUser.getCc(),
                     infoUser.getNum_cel(),
                     infoUser.getCity_of_residence(),
-                    infoUser.getAddress(),
-
+                    infoUser.getAddress()
             );
             if (updatedInfoUser != null) {
                 return new ResponseEntity<>(updatedInfoUser, HttpStatus.OK);
