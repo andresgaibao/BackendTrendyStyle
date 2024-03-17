@@ -2,11 +2,13 @@ package com.proyecto.trendy.services;
 
 import com.proyecto.trendy.entity.User;
 import com.proyecto.trendy.enums.Role;
+import com.proyecto.trendy.exceptions.MyException;
 import com.proyecto.trendy.repository.UserRepository;
 import com.proyecto.trendy.request.AuthenticationRequest;
 import com.proyecto.trendy.request.RegisterRequest;
 import com.proyecto.trendy.responses.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.maven.surefire.shade.org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,12 +31,26 @@ public class AuthenticationService {
     private  final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) throws MyException {
+
+        if (StringUtils.isEmpty(request.getName()) ||
+                StringUtils.isEmpty(request.getEmail()) ||
+                StringUtils.isEmpty(request.getPassword()) ||
+                StringUtils.isEmpty(request.getNum_cel()) ||
+                StringUtils.isEmpty(request.getCity()) ||
+                StringUtils.isEmpty(request.getAddress())) {
+            // Si algún campo está vacío, lanzar una excepción o devolver un error
+            throw   new MyException("Todos los campos son obligatorios");
+        }
+
         var user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
+                .num_cel(request.getNum_cel())
+                .city(request.getCity())
+                .address(request.getAddress())
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -42,6 +58,8 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
+
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
@@ -64,8 +82,8 @@ public class AuthenticationService {
     }
 
 
-    @PreAuthorize("#userId == authentication.principal.id")
-    public AuthenticationResponse updateUser(Integer id, RegisterRequest updatedUserData) {
+    //@PreAuthorize("#userId == authentication.principal.id")
+   /* public AuthenticationResponse updateUser(Integer id, RegisterRequest updatedUserData) {
         var user = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
 
@@ -82,7 +100,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
-    }
+    }*/
 
 
     // Método para obtener la información del usuario actualmente autenticado

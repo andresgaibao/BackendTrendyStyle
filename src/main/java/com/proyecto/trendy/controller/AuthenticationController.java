@@ -1,6 +1,7 @@
 package com.proyecto.trendy.controller;
 
 import com.proyecto.trendy.entity.User;
+import com.proyecto.trendy.exceptions.MyException;
 import com.proyecto.trendy.request.AuthenticationRequest;
 import com.proyecto.trendy.request.RegisterRequest;
 import com.proyecto.trendy.responses.AuthenticationResponse;
@@ -23,7 +24,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
-    ){
+    ) throws MyException {
         return ResponseEntity.ok(service.register(request));
     }
 
@@ -39,13 +40,13 @@ public class AuthenticationController {
     public List<User> getAllUsers() {
         return service.getAllUsers();
     }
-    @PreAuthorize("isAuthenticated() and principal.username == #id.toString()")
+   /* @PreAuthorize("isAuthenticated() and principal.username == #id.toString()")
     @PutMapping("/update/{userId}")
     public ResponseEntity<AuthenticationResponse> updateUser(@PathVariable Integer id,
                                                              @RequestBody RegisterRequest updatedUserData) {
         AuthenticationResponse response = service.updateUser(id, updatedUserData);
         return ResponseEntity.ok(response);
-    }
+    }*/
 
 
     //@GetMapping("/info")
