@@ -11,8 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -60,5 +62,22 @@ public class ProductoService {
         Product existingProduct = getProductById(id);
         repository.delete(existingProduct);
     }
+
+    //Métodos adicionales
+   /* public List<Product> getRelatedProducts(Integer category_id, Integer id){
+        List<Product>  producList = this.repository.finbByCategoryAndIdNot(category_id, id);
+        List<Product> randomProducts = new ArrayList<>();
+        Random random = new Random();
+        for(int i = 0; i < 2; i++){
+            int randomIndex = random.nextInt(producList.size());
+            randomProducts.add(producList.get(randomIndex));
+            producList.remove(randomIndex);
+        }
+        return randomProducts;
+    }
+
+    public  List<Product> getBestPriceProducts(){
+        return  this.repository.findFirstByOrderByPriceAsc();
+    }*/
 
 }
