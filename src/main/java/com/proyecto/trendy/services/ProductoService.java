@@ -6,6 +6,7 @@ import com.proyecto.trendy.entity.Product;
 import com.proyecto.trendy.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,12 @@ public class ProductoService {
 
     public Product createProduct(String name, BigDecimal price, MultipartFile img, Marca marca_id, String detail,
                                  Category category_id) throws IOException {
+
+        // Validar campos obligatorios
+        if (name == null || name.trim().isEmpty() || price == null || img == null || img.isEmpty() || marca_id == null || category_id == null) {
+            throw new IllegalArgumentException("Todos los campos son obligatorios para crear un producto");
+        }
+
         Product product = new Product();
         product.setName(name);
         product.setPrice(price);
@@ -39,6 +46,11 @@ public class ProductoService {
 
     public Product updateProduct(Integer id, String name, BigDecimal price, MultipartFile img, Marca marca_id,
                                  String detail, Category category_id) throws IOException {
+        // Validar campos obligatorios
+        if (name == null || name.trim().isEmpty() || price == null || img == null || img.isEmpty() || marca_id == null || category_id == null) {
+            throw new IllegalArgumentException("Todos los campos son obligatorios para actualizar un producto");
+        }
+
         Product existingProduct = getProductById(id);
         existingProduct.setName(name);
         existingProduct.setPrice(price);
@@ -55,8 +67,18 @@ public class ProductoService {
         return optionalProduct.orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
     }
 
+
+    public Product obtenerProductoPorId(Integer id) {
+        Optional<Product> productoOpcional = repository.findById(id);
+        return productoOpcional.orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con el ID: " + id));
+    }
+
     public List<Product> getAllProducts() {
-        return repository.findAll();
+        List<Product> productos = repository.findAll();
+        if (productos.isEmpty()) {
+            throw new EmptyResultDataAccessException("No se encontraron productos registrados", 0);
+        }
+        return productos;
     }
 
     public void deleteProduct(Integer id) {
@@ -64,21 +86,6 @@ public class ProductoService {
         repository.delete(existingProduct);
     }
 
-    //Métodos adicionales
-   /* public List<Product> getRelatedProducts(Integer category_id, Integer id){
-        List<Product>  producList = this.repository.finbByCategoryAndIdNot(category_id, id);
-        List<Product> randomProducts = new ArrayList<>();
-        Random random = new Random();
-        for(int i = 0; i < 2; i++){
-            int randomIndex = random.nextInt(producList.size());
-            randomProducts.add(producList.get(randomIndex));
-            producList.remove(randomIndex);
-        }
-        return randomProducts;
-    }
 
-    public  List<Product> getBestPriceProducts(){
-        return  this.repository.findFirstByOrderByPriceAsc();
-    }*/
 
 }

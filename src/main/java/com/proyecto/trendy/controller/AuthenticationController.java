@@ -9,6 +9,7 @@ import com.proyecto.trendy.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,33 +39,37 @@ public class AuthenticationController {
 
     @GetMapping("/list")
     public List<User> getAllUsers() {
+
         return service.getAllUsers();
     }
-   /* @PreAuthorize("isAuthenticated() and principal.username == #id.toString()")
-    @PutMapping("/update/{userId}")
+
+    @PutMapping("/update/{id}")
     public ResponseEntity<AuthenticationResponse> updateUser(@PathVariable Integer id,
                                                              @RequestBody RegisterRequest updatedUserData) {
         AuthenticationResponse response = service.updateUser(id, updatedUserData);
         return ResponseEntity.ok(response);
-    }*/
+    }
 
 
-    //@GetMapping("/info")
-    //public ResponseEntity<User> getUserInfo(@AuthenticationPrincipal User user) {
-        // Puedes usar el objeto User directamente desde el argumento del método
-        //return ResponseEntity.ok(user);
-   // }
 
-    // Otro método para obtener información del usuario utilizando el servicio
+
+    // Endpoint para obtener información del usuario utilizando el servicio
     @GetMapping("/info")
     public ResponseEntity<User> getUserInfoFromService() {
         User currentUser = service.getCurrentUser();
         return ResponseEntity.ok(currentUser);
     }
-    @PreAuthorize("isAuthenticated() and principal.username == #email")
-    @DeleteMapping("/delete/{email}")
-    public ResponseEntity<String> deleteUser(@PathVariable String email) {
-        service.deleteUser(email);
+
+    //Endpoint para obtener la informacion del usuario segun su id.
+    @GetMapping("/info/{id}")
+    public ResponseEntity<User> getUserInfoById(@PathVariable Integer id) {
+        User user = service.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+        service.deleteUser(id);
         return ResponseEntity.ok("User deleted successfully");
     }
 

@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +42,6 @@ public class AuthenticationService {
                 StringUtils.isEmpty(request.getCity()) ||
                 StringUtils.isEmpty(request.getAddress())) {
             // Si algún campo está vacío, lanzar una excepción o devolver un error
-            Response campos = new Response("Todos los campos don onligatorios");
             throw   new MyException("Todos los campos son obligatorios");
         }
 
@@ -84,8 +84,8 @@ public class AuthenticationService {
     }
 
 
-    //@PreAuthorize("#userId == authentication.principal.id")
-   /* public AuthenticationResponse updateUser(Integer id, RegisterRequest updatedUserData) {
+
+    public AuthenticationResponse updateUser(Integer id, RegisterRequest updatedUserData) {
         var user = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
 
@@ -102,7 +102,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
-    }*/
+    }
 
 
     // Método para obtener la información del usuario actualmente autenticado
@@ -115,10 +115,16 @@ public class AuthenticationService {
         }
     }
 
+
+    public User getUserById(Integer userId) {
+        return repository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+    }
+
     // Método para eliminar un usuario
-    @PreAuthorize("#userEmail == authentication.principal.username")
-    public void deleteUser(String userEmail) {
-        var user = repository.findByEmail(userEmail)
+
+    public void deleteUser(Integer id) {
+        var user = repository.findById(id)
                 .orElseThrow();
 
         repository.delete(user);

@@ -19,23 +19,27 @@ public class CategoryService {
     }
 
     public Category createCategory(String categoryName) {
+        if (categoryName == null || categoryName.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la categoría no puede ser nulo o vacío");
+        }
         Category category = new Category();
         category.setName(categoryName);
-
-        // Guardar la categoría en la base de datos
         return repository.save(category);
     }
 
+
     public Category updateCategory(Integer id, String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la categoría no puede ser nulo o vacío");
+        }
         Category existingCategory = getCategoryById(id);
         existingCategory.setName(name);
         return repository.save(existingCategory);
     }
 
-
     public Category getCategoryById(Integer id) {
         Optional<Category> optionalCategory = repository.findById(id);
-        return optionalCategory.orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + id));
+        return optionalCategory.orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada con el ID: " + id));
     }
 
 
