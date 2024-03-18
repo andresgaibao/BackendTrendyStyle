@@ -1,5 +1,6 @@
 package com.proyecto.trendy.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.proyecto.trendy.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,12 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Carrito cart;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -69,4 +76,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
 }

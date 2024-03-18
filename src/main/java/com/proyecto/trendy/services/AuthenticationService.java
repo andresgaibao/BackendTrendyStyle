@@ -7,6 +7,7 @@ import com.proyecto.trendy.repository.UserRepository;
 import com.proyecto.trendy.request.AuthenticationRequest;
 import com.proyecto.trendy.request.RegisterRequest;
 import com.proyecto.trendy.responses.AuthenticationResponse;
+import com.proyecto.trendy.responses.Response;
 import lombok.RequiredArgsConstructor;
 import org.apache.maven.surefire.shade.org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,6 +41,7 @@ public class AuthenticationService {
                 StringUtils.isEmpty(request.getCity()) ||
                 StringUtils.isEmpty(request.getAddress())) {
             // Si algún campo está vacío, lanzar una excepción o devolver un error
+            Response campos = new Response("Todos los campos don onligatorios");
             throw   new MyException("Todos los campos son obligatorios");
         }
 

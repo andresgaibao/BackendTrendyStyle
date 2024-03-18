@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class ProductoService {
     private final ProductRepository repository;
 
 
-    public Product createProduct(String name, Double price, MultipartFile img, Marca marca_id, String detail,
+    public Product createProduct(String name, BigDecimal price, MultipartFile img, Marca marca_id, String detail,
                                  Category category_id) throws IOException {
         Product product = new Product();
         product.setName(name);
@@ -36,7 +37,7 @@ public class ProductoService {
         return repository.save(product);
     }
 
-    public Product updateProduct(Integer id, String name, Double price, MultipartFile img, Marca marca_id,
+    public Product updateProduct(Integer id, String name, BigDecimal price, MultipartFile img, Marca marca_id,
                                  String detail, Category category_id) throws IOException {
         Product existingProduct = getProductById(id);
         existingProduct.setName(name);

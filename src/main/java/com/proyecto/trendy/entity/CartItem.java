@@ -8,32 +8,23 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
-
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "produc_id")
+    private Product product;
 
     private BigDecimal price;
 
-    @Lob
-    @Column(name = "img", length = 500)
-    private byte[] img;
+    private BigDecimal subtotal;
 
-    @ManyToOne
-    private Marca marca;
-
-    private String detail;
-
-    @ManyToOne
-    private Category category;
+    private int cantidad;
 }
-

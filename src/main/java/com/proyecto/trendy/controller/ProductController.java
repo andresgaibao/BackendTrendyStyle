@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@RequestParam String name, @RequestParam Double price,
+    public ResponseEntity<Product> createProduct(@RequestParam String name, @RequestParam BigDecimal price,
                                                  @RequestParam MultipartFile img, @RequestParam Marca marca_id,
                                                  @RequestParam String detail, @RequestParam Category category_id) {
         try {
@@ -39,7 +40,7 @@ public class ProductController {
 
     @PutMapping("update/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestParam String name,
-                                                 @RequestParam Double price, @RequestParam MultipartFile img,
+                                                 @RequestParam BigDecimal price, @RequestParam MultipartFile img,
                                                  @RequestParam Marca marca_id, @RequestParam String detail,
                                                  @RequestParam Category category_id) {
         try {
