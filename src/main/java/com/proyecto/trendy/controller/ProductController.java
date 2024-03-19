@@ -89,8 +89,7 @@ public class ProductController {
     public ResponseEntity<?> getProductById(@PathVariable Integer id) {
         try {
             Product product = productService.getProductById(id);
-            Response productById = new Response("Aqui esta tu producto");
-            return new ResponseEntity<>(productById, (MultiValueMap<String, String>) product, HttpStatus.OK);
+            return new ResponseEntity<>( product, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             Response notFoundResponse = new Response("Producto no encontrado");
             return new ResponseEntity<>(notFoundResponse,HttpStatus.NOT_FOUND);
