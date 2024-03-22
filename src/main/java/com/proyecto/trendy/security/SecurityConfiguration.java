@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                 .antMatchers("/api/categories/**").permitAll()
                 .antMatchers("/api/products/**").permitAll()
                 .antMatchers("/api/infoUsers/**").permitAll()
+                .antMatchers ("/api/pedido/**").permitAll ()
                 .anyRequest()
                 .authenticated()
                 .and()

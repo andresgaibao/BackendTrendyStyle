@@ -35,5 +35,10 @@ public class Product {
 
     @ManyToOne
     private Category category;
+
+    public Product orElse(Object o) {
+        return null;
+
+    }
 }
 

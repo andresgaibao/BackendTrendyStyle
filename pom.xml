@@ -67,6 +67,13 @@
 			<version>0.11.5</version>
 		</dependency>
 
+		<!--Dependencia de mercado pago -->
+		<dependency>
+			<groupId>com.mercadopago</groupId>
+			<artifactId>sdk-java</artifactId>
+			<version>2.1.20</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

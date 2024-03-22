@@ -7,10 +7,8 @@ import com.proyecto.trendy.repository.UserRepository;
 import com.proyecto.trendy.request.AuthenticationRequest;
 import com.proyecto.trendy.request.RegisterRequest;
 import com.proyecto.trendy.responses.AuthenticationResponse;
-import com.proyecto.trendy.responses.Response;
 import lombok.RequiredArgsConstructor;
 import org.apache.maven.surefire.shade.org.apache.commons.lang3.StringUtils;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -44,6 +42,9 @@ public class AuthenticationService {
             // Si algún campo está vacío, lanzar una excepción o devolver un error
             throw   new MyException("Todos los campos son obligatorios");
         }
+        if (!isCorreoUnico(request.getEmail())) {
+            throw new MyException("El correo electrónico ya está en uso");
+        }
 
         var user = User.builder()
                 .name(request.getName())
@@ -62,6 +63,10 @@ public class AuthenticationService {
     }
 
 
+    // Método para verificar si un correo es único
+    public boolean isCorreoUnico(String email) {
+        return repository.findByEmail(email).isEmpty();
+    }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
