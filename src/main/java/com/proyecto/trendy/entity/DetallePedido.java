@@ -13,18 +13,19 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartItem {
+public class DetallePedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "produc_id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    private BigDecimal price;
+    private BigDecimal price_unitary;
 
     private BigDecimal subtotal;
 
     private int cantidad;
+
 }
